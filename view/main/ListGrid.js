@@ -3,28 +3,34 @@ Ext.define('MyApp.view.main.ListGrid', {
     xtype: 'list-grid',
     title: 'TodoList',
     scrollable: 'y',
-    maxHeight: 450,
+    maxHeight: 250,
     margin: '0 0 20 0',
-
-    tbar: [
+    tbar: [{
+        text: 'Add Window Task',
+        handler: 'onAddTaskClick'
+    }, {
+        text: 'Edit Window Task',
+        handler: 'onEditTaskClick',
+        disabled: true,
+        bind: {
+            disabled: '{!selToDo || selToDo.active}'
+        }
+    }, {
+        text: 'Show more info',
+        handler: 'onShowMoreClick',
+        disabled: true,
+        bind: {
+            disabled: '{!selToDo}'
+        }
+    }, '->',
         {
-            text: 'Add Window Task',
-            handler: 'onAddTaskClick'
-        }, {
-            text: 'Edit Window Task',
-            handler: 'onEditTaskClick',
+            text: 'Remove All',
+            handler: 'onRemoveAll',
             disabled: true,
             bind: {
-                disabled: '{!selToDo || selToDo.active}'
+                disabled: '{disableRemoveAllBtn}'
             }
         }, {
-            text: 'Show more info',
-            handler: 'onShowMoreClick',
-            disabled: true,
-            bind: {
-                disabled: '{!selToDo}'
-            }
-        }, '->', {
             text: 'Remove Task',
             handler: 'onRemoveTask',
             disabled: true,
@@ -45,7 +51,7 @@ Ext.define('MyApp.view.main.ListGrid', {
             editor: {
                 xtype: 'datefield',
                 selectOnFocus: false,
-                format: 'd.m.Y',
+                format: 'd.m.Y'
             }
         },
         {
@@ -58,9 +64,16 @@ Ext.define('MyApp.view.main.ListGrid', {
             }
         },
         {
-            xtype: 'checkcolumn',
+            xtype: 'widgetcolumn',
             text: 'done',
-            dataIndex: 'active'
+            dataIndex: 'active',
+            widget: {
+                xtype: 'checkbox',
+                listeners: {
+                    change: 'getEndDate',
+                    afterrender: 'afterrenderCheckbox'
+                }
+            }
         }
     ],
     selModel: 'rowmodel',
@@ -72,7 +85,7 @@ Ext.define('MyApp.view.main.ListGrid', {
         }
     },
     listeners: {
-        beforerender: 'loadLocalStorage',
+        beforerender: 'loadLocalStorage'
     }
 });
 

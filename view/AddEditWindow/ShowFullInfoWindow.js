@@ -10,29 +10,29 @@ Ext.define('MyApp.view.AddEditWindow.ShowFullInfoWindow', {
         items: [{
             xtype: 'displayfield',
             fieldLabel: 'Date',
-            dateFormat: 'd.m.Y',
+            dateFormat: 'd.m.Y h:i:s A',
             bind: {
-                value: '{date:date("d.m.Y")}'
+                value: '{selToDo.date:date("d.m.Y")}'
             }
         }, {
             xtype: 'displayfield',
             fieldLabel: 'Task',
             bind: {
-                value: '{task}'
+                value: '{selToDo.task}'
             }
         }, {
             xtype: 'displayfield',
             fieldLabel: 'Description',
             bind: {
-                value: '{description}'
+                value: '{selToDo.description}'
             }
         }, {
             xtype: 'displayfield',
             fieldLabel: 'Status',
             bind: {
-                value: '{action}',
-            }
-        }
-        ],
+                value: '{selToDo.active}',
+            },
+            renderer: 'renderStatus'
+        }]
     }]
 });

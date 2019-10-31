@@ -14,5 +14,8 @@ Ext.define('MyApp.view.main.Main', {
                 xtype: 'description-panel',
             }
         ]
+    }, {
+        xtype: 'container',
+        title: 'MovieBD'
     }]
 });
