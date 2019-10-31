@@ -29,9 +29,9 @@ Ext.define('MyApp.view.AddEditWindow.AddEditTaskWindow', {
             bind: {
                 value: '{description}'
             }
-        }
-        ],
-        bbar: ['->', {
+        }],
+        bbar: ['->',
+            {
             xtype: 'button',
             text: 'Save',
             handler: 'handlerSaveBtn'
